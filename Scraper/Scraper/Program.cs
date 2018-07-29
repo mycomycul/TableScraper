@@ -37,26 +37,33 @@ namespace Scraper
                         Description = HttpUtility.HtmlDecode(rowCells.ElementAt(1).InnerText).Replace("\n", String.Empty),
                         MilesElevation = HttpUtility.HtmlDecode(rowCells.ElementAt(2).InnerText).Replace("\n", String.Empty),
                         Conditions = HttpUtility.HtmlDecode(rowCells.ElementAt(3).InnerText).Replace("\n", String.Empty),
-                        Updated = DateTime.Parse(HttpUtility.HtmlDecode(rowCells.ElementAt(4).InnerText).Replace("\n", String.Empty))
-                    };
-                    Console.WriteLine(tc.TrailName);
-                    Console.WriteLine(tc.Description);
-                    ConditionsList.Add(tc);
-                }
-            }
-            Console.ReadLine();
-        }
-        public class TrailConditions
-        {
-            public string TrailName { get; set; }
-            public string Description { get; set; }
-            public string MilesElevation { get; set; }
-            public string Conditions { get; set; }
-            public DateTime Updated { get; set; }
-            public TrailConditions()
-            {
+                        Updated = DateTime.Parse(HttpUtility.HtmlDecode(rowCells.ElementAt(4).InnerText).Replace("\n", String.Empty)),
+                        InfoLink = rowCells.ElementAt(0).CssSelect("a").Any() ?PageResult.AbsoluteUrl.Host + rowCells.ElementAt(0).CssSelect("a").First().GetAttributeValue("href"):null
+                        
+                };
 
+
+
+
+                Console.WriteLine(tc.TrailName);
+                Console.WriteLine(tc.Description);
+                ConditionsList.Add(tc);
             }
+        }
+        Console.ReadLine();
+        }
+    public class TrailConditions
+    {
+        public string TrailName { get; set; }
+        public string Description { get; set; }
+        public string MilesElevation { get; set; }
+        public string Conditions { get; set; }
+        public string InfoLink { get; set; }
+        public DateTime Updated { get; set; }
+        public TrailConditions()
+        {
+
         }
     }
+}
 }
