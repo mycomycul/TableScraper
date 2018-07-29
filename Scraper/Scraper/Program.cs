@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ScrapySharp.Html.Forms;
+using System.Web;
 
 namespace Scraper
 {
@@ -14,40 +15,37 @@ namespace Scraper
     {
         static void Main(string[] args)
         {
-            //ScrapingBrowser Browser = new ScrapingBrowser();
-            //Browser.AllowAutoRedirect = true;
-            //Browser.AllowMetaRedirect = true;
-            //WebPage PageResult = Browser.NavigateToPage(new Uri("https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm"));
-            //HtmlNodeCollection TableNode = PageResult.Html.SelectNodes("tbody");
-            //foreach (var item in TableNode.CssSelect()
-            //{
+            List<TrailConditions> ConditionsList = new List<TrailConditions>();
 
-            //}
-
-            var web = new HtmlWeb();
-            var document = web.Load("https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm");
-            var nodes = document.DocumentNode.CssSelect("table");
-
-            for (int i = 1; i < nodes.Count(); i++)
+            ScrapingBrowser Browser = new ScrapingBrowser();
+            Browser.AllowAutoRedirect = true;
+            Browser.AllowMetaRedirect = true;
+            WebPage PageResult = Browser.NavigateToPage(new Uri("https://www.nps.gov/olym/planyourvisit/wilderness-trail-conditions.htm"));
+            IEnumerable<HtmlNode> TableNode = PageResult.Html.CssSelect("tbody");
+            //Loop through tables skipping table one
+            for (int i = 1; i < TableNode.Count(); i++)
             {
+                var tableRows = TableNode.ElementAt(i).CssSelect("tr");
+                //Loop Through Rows adding to database skipping rows one and 2
+                for (int j = 2; j < tableRows.Count(); j++)
+                {
 
+                    var rowCells = tableRows.ElementAt(j).CssSelect("td");
+                    TrailConditions tc = new TrailConditions()
+                    {
+                        TrailName = HttpUtility.HtmlDecode(rowCells.ElementAt(0).InnerText).Replace("\n", String.Empty),
+                        Description = HttpUtility.HtmlDecode(rowCells.ElementAt(1).InnerText).Replace("\n", String.Empty),
+                        MilesElevation = HttpUtility.HtmlDecode(rowCells.ElementAt(2).InnerText).Replace("\n", String.Empty),
+                        Conditions = HttpUtility.HtmlDecode(rowCells.ElementAt(3).InnerText).Replace("\n", String.Empty),
+                        Updated = DateTime.Parse(HttpUtility.HtmlDecode(rowCells.ElementAt(4).InnerText).Replace("\n", String.Empty))
+                    };
+                    Console.WriteLine(tc.TrailName);
+                    Console.WriteLine(tc.Description);
+                    ConditionsList.Add(tc);
+                }
             }
-
-
-
-
-
-          
-
-
-
-
-
-
-            //Console.WriteLine(pageTitle);
             Console.ReadLine();
         }
-
         public class TrailConditions
         {
             public string TrailName { get; set; }
@@ -59,7 +57,6 @@ namespace Scraper
             {
 
             }
-
         }
     }
 }
