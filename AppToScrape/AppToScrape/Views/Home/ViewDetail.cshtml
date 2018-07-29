@@ -1,0 +1,18 @@
+﻿@model AppToScrape.Models.SampleData
+
+<label>SelectedPerson: @Model.SelectedName</label>
+<label>Country:
+    <select>
+        @foreach (var Country in Model.Countries)
+        {
+            if(Country.ID == Model.SelectedCountryID)
+            {
+                <option selected="selected" value="@Country.ID">@Country.CountryName</option>
+            }
+            else
+            {
+                <option value="@Country.ID">@Country.CountryName</option>
+            }
+        }
+        
+        </select></label>

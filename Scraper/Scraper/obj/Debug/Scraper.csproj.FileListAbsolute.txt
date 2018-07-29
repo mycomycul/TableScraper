@@ -1,0 +1,15 @@
+C:\Users\Michael\Desktop\Programming\Scraper\Scraper\Scraper\bin\Debug\Scraper.exe.config
+C:\Users\Michael\Desktop\Programming\Scraper\Scraper\Scraper\bin\Debug\Scraper.exe
+C:\Users\Michael\Desktop\Programming\Scraper\Scraper\Scraper\bin\Debug\Scraper.pdb
+C:\Users\Michael\Desktop\Programming\Scraper\Scraper\Scraper\bin\Debug\FSharp.Core.dll
+C:\Users\Michael\Desktop\Programming\Scraper\Scraper\Scraper\bin\Debug\HtmlAgilityPack.dll
+C:\Users\Michael\Desktop\Programming\Scraper\Scraper\Scraper\bin\Debug\ScrapySharp.Core.dll
+C:\Users\Michael\Desktop\Programming\Scraper\Scraper\Scraper\bin\Debug\ScrapySharpAsync.dll
+C:\Users\Michael\Desktop\Programming\Scraper\Scraper\Scraper\bin\Debug\FSharp.Core.xml
+C:\Users\Michael\Desktop\Programming\Scraper\Scraper\Scraper\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\Michael\Desktop\Programming\Scraper\Scraper\Scraper\bin\Debug\HtmlAgilityPack.xml
+C:\Users\Michael\Desktop\Programming\Scraper\Scraper\Scraper\obj\Debug\Scraper.csprojAssemblyReference.cache
+C:\Users\Michael\Desktop\Programming\Scraper\Scraper\Scraper\obj\Debug\Scraper.csproj.CoreCompileInputs.cache
+C:\Users\Michael\Desktop\Programming\Scraper\Scraper\Scraper\obj\Debug\Scraper.csproj.CopyComplete
+C:\Users\Michael\Desktop\Programming\Scraper\Scraper\Scraper\obj\Debug\Scraper.exe
+C:\Users\Michael\Desktop\Programming\Scraper\Scraper\Scraper\obj\Debug\Scraper.pdb
