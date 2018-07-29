@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ScrapySharp.Html.Forms;
 using System.Web;
+using System.Text.RegularExpressions;
 
 namespace Scraper
 {
@@ -31,15 +32,16 @@ namespace Scraper
                 {
 
                     var rowCells = tableRows.ElementAt(j).CssSelect("td");
+                    Regex HTMLCommentRegEx = new Regex("<[^>]*>", RegexOptions.IgnoreCase);
+
                     TrailConditions tc = new TrailConditions()
                     {
-                        TrailName = HttpUtility.HtmlDecode(rowCells.ElementAt(0).InnerText).Replace("\n", String.Empty),
-                        Description = HttpUtility.HtmlDecode(rowCells.ElementAt(1).InnerText).Replace("\n", String.Empty),
-                        MilesElevation = HttpUtility.HtmlDecode(rowCells.ElementAt(2).InnerText).Replace("\n", String.Empty),
-                        Conditions = HttpUtility.HtmlDecode(rowCells.ElementAt(3).InnerText).Replace("\n", String.Empty),
-                        Updated = DateTime.Parse(HttpUtility.HtmlDecode(rowCells.ElementAt(4).InnerText).Replace("\n", String.Empty)),
-                        InfoLink = rowCells.ElementAt(0).CssSelect("a").Any() ?PageResult.AbsoluteUrl.Host + rowCells.ElementAt(0).CssSelect("a").First().GetAttributeValue("href"):null
-                        
+                        TrailName = HTMLCommentRegEx.Replace(HttpUtility.HtmlDecode(rowCells.ElementAt(0).InnerText).Replace("\n", String.Empty),""),
+                        Description = HTMLCommentRegEx.Replace(HttpUtility.HtmlDecode(rowCells.ElementAt(1).InnerText).Replace("\n", String.Empty),""),
+                        MilesElevation = HTMLCommentRegEx.Replace(HttpUtility.HtmlDecode(rowCells.ElementAt(2).InnerText).Replace("\n", String.Empty), ""),
+                        Conditions = HTMLCommentRegEx.Replace(HttpUtility.HtmlDecode(rowCells.ElementAt(3).InnerText).Replace("\n", String.Empty), ""),
+                        Updated = DateTime.Parse(HTMLCommentRegEx.Replace(HttpUtility.HtmlDecode(rowCells.ElementAt(4).InnerText).Replace("\n", String.Empty),"")),
+                        InfoLink = rowCells.ElementAt(0).CssSelect("a").Any() ?PageResult.AbsoluteUrl.Host + HTMLCommentRegEx.Replace(rowCells.ElementAt(0).CssSelect("a").First().GetAttributeValue("href"),""):null
                 };
 
 
