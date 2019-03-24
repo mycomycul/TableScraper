@@ -18,6 +18,12 @@ namespace Scraper
         {
             var RainierConditions = RainierTrailConditions();
             var OlympicConditions = OlympicTrailConditions();
+            foreach(var location in OlympicConditions)
+            {
+                Console.WriteLine("Current Conditions for {0}", location.TrailName);
+                Console.WriteLine(location.Conditions.PadLeft(1, '\u0009') + '\n');
+                
+            }
             Console.ReadLine();
         }
         ///<summary>
